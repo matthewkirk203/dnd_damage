@@ -23,6 +23,19 @@ function calcAvgDamageWithRerolls(numSides, numDice=1, rerolls=[]) {
     return numDice*sum/numSides;   
 }
 
+function calcHitChance(ac, attackBonus=0) {
+    hitChance = (21+attackBonus-ac)/20;
+    // Take into accout crit success and failures
+    if (hitChance > .95) {
+        hitChance = .95;
+    }
+    else if (hitChance < .05) {
+        hitChance = .05;
+    }
+
+    return hitChance;
+}
+
 function updateDamage() {
     numDice = document.getElementById("numDice").valueAsNumber;
     numSides = document.getElementById("numSides").valueAsNumber;
@@ -31,7 +44,11 @@ function updateDamage() {
     if (reroll != "") {
         reroll_list = reroll.split(",").map(Number);
     }
-    dmg = calcAvgDamageWithRerolls(numSides, numDice, reroll_list);
+    dmg = calcAvgDamageWithRerolls(numSides, numDice, reroll_list) + document.getElementById("damageBonus").valueAsNumber;
     document.getElementById("avgDamage").innerHTML = dmg;
+
+    hitChance = calcHitChance(document.getElementById("targetAC").valueAsNumber, document.getElementById("attackBonus").valueAsNumber);
+    document.getElementById("hitChance").innerHTML = hitChance;
+    document.getElementById("totalAverageDamage").innerHTML = dmg*hitChance;
 }
 

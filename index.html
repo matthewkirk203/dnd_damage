@@ -2,18 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript" src="calc.js"></script>
   </head>
   <body>
     <form>
-        <label>Enemy AC:</label>
-        <input type="number" id="enemyAC" value="1"></br>
+        <label>Target AC:</label><input type="number" id="targetAC" value="1"> </br>
+        <label>Attack Bonus:</label><input type="number" id="attackBonus" value=0> </br>
 
         <label>Damage:</label>
-        <input type="number" id="numDice" name="numDice" value="1">d<input type="number" id="numSides" value="6"></br>
+        <input type="number" id="numDice" name="numDice" value="1">d<input type="number" id="numSides" value="6">+<input type="number" id="damageBonus" value="0"></br>
         <label>Reroll (once, comma separated):</label><input id="reroll" type="text" placeholder="1,2,3">
     </br><input type="button" value="Calculate" onclick="updateDamage()">
     </form>
-    <span id="avgDamage"></span>
+    <span>Average Hit Damage: </span><span id="avgDamage"></span></br>
+    <span>Hit Chance: </span> <span id="hitChance"></span></br>
+    <span>Total Average Damage: </span><span id="totalAverageDamage"></span>
+
   </body>
 </html>
